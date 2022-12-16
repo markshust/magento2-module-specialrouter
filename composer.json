@@ -1,0 +1,21 @@
+{
+    "name": "markshust/magento2-module-specialrouter",
+    "description": "The SpecialRouter module adds the ability to use special characters in URLs.",
+    "require": {
+        "php": "^8",
+        "magento/framework": ">=103"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": [
+        "MIT"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MarkShust\\SpecialRouter\\": ""
+        }
+    }
+}
