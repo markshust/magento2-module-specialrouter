@@ -61,8 +61,9 @@ class SpecialRouter implements RouterInterface
      * @param string $pathInfo
      * @return bool
      */
-    private function isMatch(string $pathInfo): bool
-    {
+    private function isMatch(
+        string $pathInfo,
+    ): bool {
         foreach (self::SYMBOL_TO_NAME_MAP as $item) {
             if (str_contains($pathInfo, $item['symbol'])) {
                 return true;
@@ -78,8 +79,9 @@ class SpecialRouter implements RouterInterface
      * @param string $pathInfo
      * @return string
      */
-    private function replacePath(string $pathInfo): string
-    {
+    private function replacePath(
+        string $pathInfo,
+    ): string {
         foreach (self::SYMBOL_TO_NAME_MAP as $item) {
             $pathInfo = str_replace($item['symbol'], $item['name'], $pathInfo);
         }
