@@ -57,7 +57,7 @@ class SpecialRouter implements RouterInterface
     }
 
     /**
-     * Does the path contain a character in the special map?
+     * Does the path contain a character in the symbol to name map?
      *
      * @param string $pathInfo
      * @return bool
