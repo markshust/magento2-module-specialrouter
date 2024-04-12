@@ -51,8 +51,7 @@ class SpecialRouter implements RouterInterface
             $request->setPathInfo($newPathInfo);
         }
 
-        // Now that path has been updated, return void to allow the next router to match.
-        // We return void rather than null so the return type has compatibility with PHP <=8.1.
+        // Return void to allow the next router to match (void vs. null for PHP <=8.1 compatibility).
     }
 
     /**
