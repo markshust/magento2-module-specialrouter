@@ -5,8 +5,11 @@
         "php": "^8",
         "magento/framework": ">=103"
     },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest"
+    },
     "type": "magento2-module",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "license": [
         "MIT"
     ],
