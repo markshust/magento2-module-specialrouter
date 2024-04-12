@@ -33,7 +33,7 @@ class SpecialRouter implements RouterInterface
      * Match a route to this router.
      *
      * If there is a match, replace the path with the new path.
-     * Ex. /my-module/foo-bar/baz_qux -> /my-module/foodashbar/bazunderscorequx
+     * Ex. /front-name/foo-bar/baz_qux -> /front-name/foodashbar/bazunderscorequx
      *
      * @param RequestInterface $request
      * @return ActionInterface|null
