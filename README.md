@@ -14,6 +14,7 @@
 - [Summary](#summary)
 - [Installation](#installation)
 - [Usage](#usage)
+- [Credits](#credits)
 - [License](#license)
 
 ## Summary
@@ -50,6 +51,25 @@ Controller/AlphaDashBeta/CharlieDashDelta.php
 ```
 
 The `-` in the URL will be translated to `dash` in the actionPath and actionName, so if we create files using `Dash` in the controller and action name, they will respond to these requests.
+
+## Credits
+
+### M.academy
+
+This course is sponsored by <a href="https://m.academy" target="_blank">M.academy</a>, the simplest way to learn Magento.
+
+<a href="https://m.academy" target="_blank"><img src="docs/macademy-logo.png" alt="M.academy"></a>
+
+### Mark Shust
+
+My name is Mark Shust and I'm the creator of this repo. I'm a <a href="https://www.credly.com/users/mark-shust/badges" target="_blank">6X Adobe Commerce Certified Developer</a> and have been involved with Magento since the early days (v0.8!). I create technical education courses full-time for my company, <a href="https://m.academy" target="_blank">M.academy</a>.
+
+- <a href="https://m.academy/courses" target="_blank">🖥️ See my Magento lessons & courses</a>
+- <a href="https://m.academy/articles" target="_blank">📖 Read my technical articles</a>
+- <a href="https://youtube.com/markshust" target="_blank">🎥 Watch my YouTube videos</a>
+- <a href="https://www.linkedin.com/in/MarkShust/" target="_blank">🔗 Connect on LinkedIn</a>
+- <a href="https://twitter.com/MarkShust" target="_blank">🐦 Follow me on X</a>
+- <a href="mailto:mark@m.academy">💌 Contact me</a>
 
 ## License
 
