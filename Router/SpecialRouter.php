@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace MarkShust\SpecialRouter\Router;
 
-use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\RouterInterface;
 
@@ -62,7 +61,7 @@ class SpecialRouter implements RouterInterface
      * @param string $pathInfo
      * @return bool
      */
-    public function isMatch(string $pathInfo): bool
+    private function isMatch(string $pathInfo): bool
     {
         foreach (self::SYMBOL_TO_NAME_MAP as $item) {
             if (str_contains($pathInfo, $item['symbol'])) {
@@ -79,7 +78,7 @@ class SpecialRouter implements RouterInterface
      * @param string $pathInfo
      * @return string
      */
-    public function replacePath(string $pathInfo): string
+    private function replacePath(string $pathInfo): string
     {
         foreach (self::SYMBOL_TO_NAME_MAP as $item) {
             $pathInfo = str_replace($item['symbol'], $item['name'], $pathInfo);
