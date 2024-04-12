@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace MarkShust\SpecialRouter\Router;
 
@@ -7,7 +9,7 @@ use Magento\Framework\App\Router\Base;
 
 class SpecialRouter extends Base
 {
-    const specialMap = [
+    private const array SPECIAL_MAP = [
         [
             'symbol' => '-',
             'name' => 'dash',
@@ -26,11 +28,17 @@ class SpecialRouter extends Base
         ],
     ];
 
+    /**
+     * Translate special characters in the path to names.
+     *
+     * @param RequestInterface $request
+     * @return array
+     */
     protected function parseRequest(RequestInterface $request): array
     {
         $output = parent::parseRequest($request);
 
-        foreach (self::specialMap as $item) {
+        foreach (self::SPECIAL_MAP as $item) {
             // These two lines convert the symbol to its related name (For example, - to dash).
             // This makes it so that "Dash" can be used within a controller class name to respond to these requests.
             $output['actionPath'] = isset($output['actionPath'])
