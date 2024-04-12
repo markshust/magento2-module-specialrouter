@@ -36,11 +36,11 @@ class SpecialRouter implements RouterInterface
      * Ex. /front-name/foo-bar/baz_qux -> /front-name/foodashbar/bazunderscorequx
      *
      * @param RequestInterface $request
-     * @return ActionInterface|null
+     * @return void
      */
     public function match(
         RequestInterface $request,
-    ): ActionInterface|null {
+    ): void {
         $identifier = trim($request->getPathInfo(), '/');
         $pathParts = explode('/', $identifier);
         $moduleName = array_shift($pathParts);
@@ -52,8 +52,8 @@ class SpecialRouter implements RouterInterface
             $request->setPathInfo($newPathInfo);
         }
 
-        // Now that path has been updated, return null to allow the next router to match.
-        return null;
+        // Now that path has been updated, return void to allow the next router to match.
+        // We return void rather than null so the return type has compatibility with PHP <=8.1.
     }
 
     /**
