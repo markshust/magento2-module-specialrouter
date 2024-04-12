@@ -5,7 +5,7 @@
             <argument name="routerList" xsi:type="array">
                 <item name="specialRouter" xsi:type="array">
                     <item name="class" xsi:type="string">MarkShust\SpecialRouter\Router\SpecialRouter</item>
-                    <item name="sortOrder" xsi:type="string">40</item>
+                    <item name="sortOrder" xsi:type="string">25</item>
                 </item>
             </argument>
         </arguments>
