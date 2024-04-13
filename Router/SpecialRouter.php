@@ -9,7 +9,7 @@ use Magento\Framework\App\RouterInterface;
 
 class SpecialRouter implements RouterInterface
 {
-    private const array SYMBOL_TO_NAME_MAP = [
+    private const SYMBOL_TO_NAME_MAP = [
         [
             'symbol' => '-',
             'name' => 'dash',
