@@ -46,8 +46,7 @@ class SpecialRouter implements RouterInterface
         $pathInfo = implode('/', $pathParts);
 
         if ($this->isMatch($pathInfo)) {
-            $newPathInfo = $this->replacePath($pathInfo);
-            $newPathInfo = "/$moduleName/$newPathInfo";
+            $newPathInfo = sprintf('/%s/%s', $moduleName, $this->replacePath($pathInfo));
             $request->setPathInfo($newPathInfo);
         }
 
