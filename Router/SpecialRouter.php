@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace MarkShust\SpecialRouter\Router;
 
 use Magento\Framework\App\RequestInterface;
-use Magento\Framework\App\Router\Base;
+use Magento\Framework\App\RouterInterface;
 
-class SpecialRouter extends Base
+class SpecialRouter implements RouterInterface
 {
-    private const array SPECIAL_MAP = [
+    private const SYMBOL_TO_NAME_MAP = [
         [
             'symbol' => '-',
             'name' => 'dash',
@@ -29,26 +29,61 @@ class SpecialRouter extends Base
     ];
 
     /**
-     * Translate special characters in the path to names.
+     * Match a route to this router.
+     *
+     * If there is a match, replace the path with the new path.
+     * Ex. /front-name/foo-bar/baz_qux -> /front-name/foodashbar/bazunderscorequx
      *
      * @param RequestInterface $request
-     * @return array
+     * @return void
      */
-    protected function parseRequest(RequestInterface $request): array
-    {
-        $output = parent::parseRequest($request);
+    public function match(
+        RequestInterface $request,
+    ): void {
+        $identifier = trim($request->getPathInfo(), '/');
+        $pathParts = explode('/', $identifier);
+        $moduleName = array_shift($pathParts);
+        $pathInfo = implode('/', $pathParts);
 
-        foreach (self::SPECIAL_MAP as $item) {
-            // These two lines convert the symbol to its related name (For example, - to dash).
-            // This makes it so that "Dash" can be used within a controller class name to respond to these requests.
-            $output['actionPath'] = isset($output['actionPath'])
-                ? str_replace($item['symbol'], $item['name'], $output['actionPath'])
-                : null;
-            $output['actionName'] = isset($output['actionName'])
-                ? str_replace($item['symbol'], $item['name'], $output['actionName'])
-                : null;
+        if ($this->isMatch($pathInfo)) {
+            $newPathInfo = sprintf('/%s/%s', $moduleName, $this->replacePath($pathInfo));
+            $request->setPathInfo($newPathInfo);
         }
 
-        return $output;
+        // Return void to allow the next router to match (void vs. null for PHP <=8.1 compatibility).
+    }
+
+    /**
+     * Does the path contain a character in the symbol to name map?
+     *
+     * @param string $pathInfo
+     * @return bool
+     */
+    private function isMatch(
+        string $pathInfo,
+    ): bool {
+        foreach (self::SYMBOL_TO_NAME_MAP as $item) {
+            if (str_contains($pathInfo, $item['symbol'])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Replace special characters in the path with their names.
+     *
+     * @param string $pathInfo
+     * @return string
+     */
+    private function replacePath(
+        string $pathInfo,
+    ): string {
+        foreach (self::SYMBOL_TO_NAME_MAP as $item) {
+            $pathInfo = str_replace($item['symbol'], $item['name'], $pathInfo);
+        }
+
+        return $pathInfo;
     }
 }
