@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-04-27
+### Fixed
+- Limit rewrite scope to actionPath and actionName so URL arguments are preserved, fixing the store switcher and other URLs with special characters in arguments [PR #8](https://github.com/markshust/magento2-module-specialrouter/pull/8).
+
 ## [2.0.0] - 2024-04-13
 ### Updated
 - Refactored router to implement RouterInterface [PR #4](https://github.com/markshust/magento2-module-specialrouter/pull/4).
