@@ -6,27 +6,14 @@ namespace MarkShust\SpecialRouter\Router;
 
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\RouterInterface;
+use MarkShust\SpecialRouter\Service\PathInfoRewriter;
 
 class SpecialRouter implements RouterInterface
 {
-    private const SYMBOL_TO_NAME_MAP = [
-        [
-            'symbol' => '-',
-            'name' => 'dash',
-        ],
-        [
-            'symbol' => '.',
-            'name' => 'period',
-        ],
-        [
-            'symbol' => '~',
-            'name' => 'tilda',
-        ],
-        [
-            'symbol' => '_',
-            'name' => 'underscore',
-        ],
-    ];
+    public function __construct(
+        private readonly PathInfoRewriter $pathInfoRewriter,
+    ) {
+    }
 
     /**
      * Match a route to this router.
@@ -40,50 +27,13 @@ class SpecialRouter implements RouterInterface
     public function match(
         RequestInterface $request,
     ): void {
-        $identifier = trim($request->getPathInfo(), '/');
-        $pathParts = explode('/', $identifier);
-        $moduleName = array_shift($pathParts);
-        $pathInfo = implode('/', $pathParts);
+        $pathInfo = $request->getPathInfo();
+        $rewrittenPathInfo = $this->pathInfoRewriter->rewrite($pathInfo);
 
-        if ($this->isMatch($pathInfo)) {
-            $newPathInfo = sprintf('/%s/%s', $moduleName, $this->replacePath($pathInfo));
-            $request->setPathInfo($newPathInfo);
+        if ($rewrittenPathInfo !== $pathInfo) {
+            $request->setPathInfo($rewrittenPathInfo);
         }
 
         // Return void to allow the next router to match (void vs. null for PHP <=8.1 compatibility).
-    }
-
-    /**
-     * Does the path contain a character in the symbol to name map?
-     *
-     * @param string $pathInfo
-     * @return bool
-     */
-    private function isMatch(
-        string $pathInfo,
-    ): bool {
-        foreach (self::SYMBOL_TO_NAME_MAP as $item) {
-            if (str_contains($pathInfo, $item['symbol'])) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Replace special characters in the path with their names.
-     *
-     * @param string $pathInfo
-     * @return string
-     */
-    private function replacePath(
-        string $pathInfo,
-    ): string {
-        foreach (self::SYMBOL_TO_NAME_MAP as $item) {
-            $pathInfo = str_replace($item['symbol'], $item['name'], $pathInfo);
-        }
-
-        return $pathInfo;
     }
 }

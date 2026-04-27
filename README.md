@@ -19,7 +19,7 @@
 
 ## Summary
 
-Magento does not provide the ability to set special characters on controller or action names. This module fixes that by providing the ability to use `-`, `.`, `~`, `_` within a URL.
+Magento does not provide the ability to set special characters on controller or action names. This module fixes that by providing the ability to use `-`, `.`, `~` within a URL.
 
 ## Installation
 
@@ -36,7 +36,6 @@ This module is really simple to use. All you need to do is use the appropriate "
 - Symbol: `-`, Name: `Dash`
 - Symbol: `.`, Name: `Period`
 - Symbol: `~`, Name: `Tilda`
-- Symbol: `_`, Name: `Underscore`
 
 For example, to respond to a request with a `frontName` of `foo` at the following location:
 
