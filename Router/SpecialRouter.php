@@ -22,17 +22,13 @@ class SpecialRouter implements RouterInterface
             'symbol' => '~',
             'name' => 'tilda',
         ],
-        [
-            'symbol' => '_',
-            'name' => 'underscore',
-        ],
     ];
 
     /**
      * Match a route to this router.
      *
      * If there is a match, replace the path with the new path.
-     * Ex. /front-name/foo-bar/baz_qux -> /front-name/foodashbar/bazunderscorequx
+     * Ex. /front-name/foo-bar/baz.qux -> /front-name/foodashbar/bazperiodqux
      *
      * @param RequestInterface $request
      * @return void
