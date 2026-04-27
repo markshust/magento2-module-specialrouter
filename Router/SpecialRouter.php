@@ -40,17 +40,34 @@ class SpecialRouter implements RouterInterface
     public function match(
         RequestInterface $request,
     ): void {
-        $identifier = trim($request->getPathInfo(), '/');
-        $pathParts = explode('/', $identifier);
-        $moduleName = array_shift($pathParts);
-        $pathInfo = implode('/', $pathParts);
+        [$moduleName, $pathInfo, $args] = $this->splitPath($request->getPathInfo());
 
         if ($this->isMatch($pathInfo)) {
-            $newPathInfo = sprintf('/%s/%s', $moduleName, $this->replacePath($pathInfo));
+            $newPathInfo = sprintf('/%s/%s%s', $moduleName, $this->replacePath($pathInfo), $args);
             $request->setPathInfo($newPathInfo);
         }
 
         // Return void to allow the next router to match (void vs. null for PHP <=8.1 compatibility).
+    }
+
+    /**
+     * Split a raw path into [frontName, actionPath/actionName, trailing args].
+     *
+     * @param string $rawPathInfo
+     * @return array{0: string, 1: string, 2: string}
+     */
+    private function splitPath(
+        string $rawPathInfo,
+    ): array {
+        $pathParts = explode('/', trim($rawPathInfo, '/'));
+
+        $moduleName = array_shift($pathParts) ?? '';
+        $actionPath = array_shift($pathParts) ?? '';
+        $actionName = array_shift($pathParts) ?? '';
+        $pathInfo = trim("$actionPath/$actionName", '/');
+        $args = $pathParts ? '/' . implode('/', $pathParts) : '';
+
+        return [$moduleName, $pathInfo, $args];
     }
 
     /**
